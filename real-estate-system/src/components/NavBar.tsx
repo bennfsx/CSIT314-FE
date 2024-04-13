@@ -29,6 +29,12 @@ const Navbar: React.FC = () => {
           </button>
           <div className={`${isOpen ? "block" : "hidden"} sm:flex`}>
             <Link
+              to="/listing"
+              className="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium"
+            >
+              Property Listing
+            </Link>
+            <Link
               to="/login"
               className="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium"
             >
