@@ -5,7 +5,7 @@ import LoginForm from "./components/LoginForm";
 import SignupForm from "./components/SignUpForm";
 import LandingPage from "./pages/LandingPage";
 import PropertyListing from "./components/PropertyListing";
-import PropertyManagementPage from "./components/PropertyManagementPage";
+import PropertyFormPage from "./components/PropertyFormPage";
 
 const App: React.FC = () => {
   return (
@@ -14,13 +14,16 @@ const App: React.FC = () => {
       <div className="mt-8">
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route
-            path="/manageproperties"
-            element={<PropertyManagementPage />}
-          />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/listing" element={<PropertyListing />} />
           <Route path="/signup" element={<SignupForm />} />
+          <Route path="/property-form" element={<PropertyFormPage />} />{" "}
+          {/* For adding new property */}
+          <Route
+            path="/property-form/:propertyId"
+            element={<PropertyFormPage />}
+          />{" "}
+          {/* For editing an existing property */}
           {/* Add other routes here */}
         </Routes>
       </div>
