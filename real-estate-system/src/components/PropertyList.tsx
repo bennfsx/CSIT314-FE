@@ -6,6 +6,7 @@ export interface Property {
   price: string;
   location: string;
   imageUrl: string;
+  description: string;
 }
 
 interface PropertyListProps {

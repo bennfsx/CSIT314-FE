@@ -1,45 +1,52 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import PropertyForm from "./PropertyForm";
-// import { Property } from "../types"; // Make sure this is imported
+import { useProperties, Property } from "../contexts/PropertyContext";
 
-interface Property {
-  id: number;
-  title: string;
-  price: string;
-  location: string;
-  imageUrl: string;
-}
-
-interface Props {
-  onSave: (property: Property) => void;
-  properties: Property[];
-}
-
-const PropertyFormPage: React.FC<Props> = ({ onSave, properties }) => {
-  const { propertyId } = useParams<{ propertyId: string }>();
+const PropertyFormPage: React.FC = () => {
+  const { propertyId } = useParams<{ propertyId?: string }>();
   const navigate = useNavigate();
-  const [currentProperty, setCurrentProperty] = useState<
-    Property | undefined
-  >();
+  const { properties, addProperty, updateProperty } = useProperties();
+  const [property, setProperty] = useState<Property>({
+    id: 0,
+    title: "",
+    price: "",
+    location: "",
+    imageUrl: "",
+    description: "",
+  });
 
   useEffect(() => {
     if (propertyId) {
       const prop = properties.find((p) => p.id.toString() === propertyId);
-      setCurrentProperty(prop);
+      if (prop) {
+        setProperty(prop);
+      } else {
+        console.log("Property not found");
+        // Handle redirection or display an error message
+      }
     }
   }, [propertyId, properties]);
 
-  const handleSave = (property: Property) => {
-    onSave(property);
-    navigate("/listing"); // Redirect back to the listing page after saving
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (propertyId) {
+      updateProperty(property);
+    } else {
+      addProperty(property);
+    }
+    navigate("/listing"); // Redirect to the listing page
   };
 
   return (
-    <div>
-      <h1>{propertyId ? "Edit Property" : "Add New Property"}</h1>
-      <PropertyForm property={currentProperty} onSave={handleSave} />
-    </div>
+    <form onSubmit={handleSubmit} className="space-y-4">
+      {/* form fields */}
+      <button
+        type="submit"
+        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+      >
+        Save Property
+      </button>
+    </form>
   );
 };
 

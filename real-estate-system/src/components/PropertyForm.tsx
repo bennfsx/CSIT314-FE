@@ -6,6 +6,7 @@ export interface Property {
   price: string;
   location: string;
   imageUrl: string;
+  description: string;
 }
 
 interface PropertyFormProps {
@@ -18,6 +19,7 @@ const PropertyForm: React.FC<PropertyFormProps> = ({ property, onSave }) => {
   const [price, setPrice] = useState("");
   const [location, setLocation] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const [description, setDescription] = useState("");
 
   useEffect(() => {
     if (property) {
@@ -25,6 +27,7 @@ const PropertyForm: React.FC<PropertyFormProps> = ({ property, onSave }) => {
       setPrice(property.price);
       setLocation(property.location);
       setImageUrl(property.imageUrl);
+      setDescription(property.description);
     }
   }, [property]);
 
@@ -36,6 +39,7 @@ const PropertyForm: React.FC<PropertyFormProps> = ({ property, onSave }) => {
       price,
       location,
       imageUrl,
+      description,
     });
   };
 
